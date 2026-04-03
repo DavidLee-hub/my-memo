@@ -1,6 +1,6 @@
 {
-  "name": "HJLEE",
-  "short_name": "HJLEE",
+  "name": "MHLEE",
+  "short_name": "MHLEE",
   "description": "나만의 PWA 오프라인 메모장",
   "start_url": "/",
   "display": "standalone",
