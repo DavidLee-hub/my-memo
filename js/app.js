@@ -28,9 +28,9 @@ const state = {
 const memoInput     = document.getElementById('memoInput');
 const btnSave       = document.getElementById('btnSave');
 const btnStar       = document.getElementById('btnStar');
-const btnCancel     = document.getElementById('btnCancel');
-const editorBack    = document.getElementById('editorBack');
 const btnAttach     = document.getElementById('btnAttach');
+const btnRecord     = document.getElementById('btnRecord');
+const btnFab        = document.getElementById('btnFab');
 const inputImage    = document.getElementById('inputImage');
 const imagePreview  = document.getElementById('imagePreview');
 const searchInput   = document.getElementById('searchInput');
@@ -171,20 +171,35 @@ function renderNotes() {
     card.className = `memo-card${note.starred ? ' starred' : ''}`;
     card.dataset.id = note.id;
 
-    // 썸네일 (첫 번째 이미지)
-    const thumb = note.images && note.images.length > 0
-      ? `<img class="memo-card__thumb" src="${note.images[0]}" alt="첨부 이미지">`
-      : '';
+    // 첫 줄을 제목으로 추출
+    const lines = note.text.split('\n');
+    const title = escapeHtml(lines[0]) || '(제목 없음)';
 
     card.innerHTML = `
-      ${thumb}
-      <div class="memo-card__text">${escapeHtml(note.text)}</div>
-      <div class="memo-card__meta">
-        <span>${formatDate(note.updatedAt)}</span>
-        ${note.starred ? '<span class="memo-card__star">★</span>' : ''}
-      </div>`;
+      <div class="memo-card__header">
+        <span class="memo-card__title">${title}</span>
+        <button class="memo-card__star-btn${note.starred ? ' active' : ''}" data-id="${note.id}" aria-label="중요 토글">
+          ${note.starred ? '★' : '☆'}
+        </button>
+      </div>
+      <div class="memo-card__meta">${formatDate(note.updatedAt)}</div>`;
 
-    card.addEventListener('click', () => openDetail(note.id));
+    // 카드 클릭 → 상세보기
+    card.addEventListener('click', e => {
+      if (e.target.closest('.memo-card__star-btn')) return;
+      openDetail(note.id);
+    });
+
+    // ☆ 버튼 클릭 → 중요 토글
+    card.querySelector('.memo-card__star-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      const note = state.notes.find(n => n.id === e.currentTarget.dataset.id);
+      if (!note) return;
+      note.starred = !note.starred;
+      saveNotes();
+      renderNotes();
+    });
+
     memoList.appendChild(card);
   });
 }
@@ -395,9 +410,11 @@ btnSave.addEventListener('click', () => {
   renderNotes();
 });
 
-/** 취소 버튼 / 에디터 뒤로가기 */
-btnCancel.addEventListener('click', () => resetEditor());
-editorBack.addEventListener('click', () => resetEditor());
+/** FAB 버튼 — 에디터로 포커스 */
+btnFab.addEventListener('click', () => {
+  memoInput.focus();
+  memoInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
 
 /** 중요(별) 토글 */
 btnStar.addEventListener('click', () => {

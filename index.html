@@ -60,26 +60,19 @@
 
     <!-- 메모 입력 영역 -->
     <section class="editor" id="editor">
-      <div class="editor__body">
-        <!-- 좌측 뒤로가기(취소) 버튼 -->
-        <button class="editor__back" id="editorBack" aria-label="취소">←</button>
-        <!-- 텍스트 입력 -->
-        <textarea
-          class="editor__textarea"
-          id="memoInput"
-          placeholder="내용을 입력하세요..."
-        ></textarea>
-        <!-- 우측 세로 버튼 영역 -->
-        <div class="editor__sidebar">
-          <button class="btn-save" id="btnSave">저장</button>
-          <button class="btn-star" id="btnStar" aria-label="중요 메모">중요</button>
-          <button class="btn-cancel" id="btnCancel">취소</button>
-        </div>
-      </div>
-      <!-- 하단: 이미지 첨부 -->
-      <div class="editor__footer">
-        <button class="btn-attach" id="btnAttach" aria-label="이미지 첨부">📎 사진</button>
-        <input type="file" id="inputImage" accept="image/*" hidden>
+      <!-- 텍스트 입력 (전체 너비) -->
+      <textarea
+        class="editor__textarea"
+        id="memoInput"
+        placeholder="내용을 입력하세요..."
+      ></textarea>
+      <!-- 하단 액션 버튼 (가로 배열) -->
+      <div class="editor__actions">
+        <button class="btn-camera" id="btnAttach" aria-label="카메라/사진">📷 카메라</button>
+        <input type="file" id="inputImage" accept="image/*" capture="environment" hidden>
+        <button class="btn-record" id="btnRecord" aria-label="녹음">🎙 녹음</button>
+        <button class="btn-star" id="btnStar" aria-label="중요 메모">☆</button>
+        <button class="btn-save" id="btnSave">저장</button>
       </div>
       <!-- 이미지 미리보기 영역 -->
       <div class="editor__preview" id="imagePreview" hidden></div>
@@ -87,20 +80,26 @@
 
     <!-- 검색 & 필터 영역 -->
     <section class="search-bar">
-      <input
-        class="search-bar__input"
-        type="search"
-        id="searchInput"
-        placeholder="검색..."
-        aria-label="메모 검색"
-      >
-      <button class="btn-filter" id="btnFilter" aria-label="중요 메모 필터">☆ 중요</button>
+      <div class="search-bar__wrap">
+        <input
+          class="search-bar__input"
+          type="search"
+          id="searchInput"
+          placeholder="메모 검색"
+          aria-label="메모 검색"
+        >
+        <span class="search-bar__icon">🔍</span>
+      </div>
+      <button class="btn-filter" id="btnFilter" aria-label="중요 메모 필터">☆</button>
     </section>
 
     <!-- 메모 목록 -->
     <section class="memo-list" id="memoList" aria-label="메모 목록">
       <!-- 메모 카드가 여기에 동적으로 생성됩니다 -->
     </section>
+
+    <!-- + FAB 버튼 (새 메모) -->
+    <button class="btn-fab" id="btnFab" aria-label="새 메모">+</button>
 
   </main>
 
