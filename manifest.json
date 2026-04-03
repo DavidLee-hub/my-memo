@@ -1,11 +1,11 @@
 {
-  "name": "My Memo",
-  "short_name": "My Memo",
+  "name": "HJLEE",
+  "short_name": "HJLEE",
   "description": "나만의 PWA 오프라인 메모장",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F5F7FA",
-  "theme_color": "#4A90D9",
+  "background_color": "#F4F1EC",
+  "theme_color": "#2C6E49",
   "orientation": "portrait-primary",
   "icons": [
     {

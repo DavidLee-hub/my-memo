@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#4A90D9">
+  <meta name="theme-color" content="#2C6E49">
   <meta name="description" content="나만의 메모장 - PWA 오프라인 메모 앱">
 
   <!-- PWA Manifest -->
@@ -12,16 +12,20 @@
   <!-- 앱 아이콘 -->
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" href="public/web/variable/pretendardvariable.css">
+
   <!-- 스타일시트 -->
   <link rel="stylesheet" href="css/style.css">
 
-  <title>My Memo</title>
+  <title>HJLEE</title>
 </head>
 <body>
+<div class="app-wrapper">
 
   <!-- 헤더 -->
   <header class="header">
-    <h1 class="header__title">My Memo</h1>
+    <h1 class="header__title">HJLEE</h1>
     <div class="header__actions">
       <!-- 설치 버튼 (PWA 설치 가능 시 표시) -->
       <button class="btn-install" id="btnInstall" hidden>설치</button>
@@ -56,20 +60,26 @@
 
     <!-- 메모 입력 영역 -->
     <section class="editor" id="editor">
-      <textarea
-        class="editor__textarea"
-        id="memoInput"
-        placeholder="메모를 입력하세요..."
-        rows="4"
-      ></textarea>
-      <div class="editor__actions">
-        <!-- 이미지 첨부 버튼 -->
-        <button class="btn-attach" id="btnAttach" aria-label="이미지 첨부">📎</button>
+      <div class="editor__body">
+        <!-- 좌측 뒤로가기(취소) 버튼 -->
+        <button class="editor__back" id="editorBack" aria-label="취소">←</button>
+        <!-- 텍스트 입력 -->
+        <textarea
+          class="editor__textarea"
+          id="memoInput"
+          placeholder="내용을 입력하세요..."
+        ></textarea>
+        <!-- 우측 세로 버튼 영역 -->
+        <div class="editor__sidebar">
+          <button class="btn-save" id="btnSave">저장</button>
+          <button class="btn-star" id="btnStar" aria-label="중요 메모">중요</button>
+          <button class="btn-cancel" id="btnCancel">취소</button>
+        </div>
+      </div>
+      <!-- 하단: 이미지 첨부 -->
+      <div class="editor__footer">
+        <button class="btn-attach" id="btnAttach" aria-label="이미지 첨부">📎 사진</button>
         <input type="file" id="inputImage" accept="image/*" hidden>
-        <!-- 중요 메모 토글 (별 버튼) -->
-        <button class="btn-star" id="btnStar" aria-label="중요 메모">☆</button>
-        <!-- 저장 버튼 -->
-        <button class="btn-save" id="btnSave">저장</button>
       </div>
       <!-- 이미지 미리보기 영역 -->
       <div class="editor__preview" id="imagePreview" hidden></div>
@@ -112,6 +122,8 @@
 
   <!-- 토스트 알림 -->
   <div class="toast" id="toast" aria-live="polite"></div>
+
+</div><!-- /.app-wrapper -->
 
   <!-- 스크립트 -->
   <script src="js/app.js"></script>

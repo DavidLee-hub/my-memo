@@ -28,6 +28,8 @@ const state = {
 const memoInput     = document.getElementById('memoInput');
 const btnSave       = document.getElementById('btnSave');
 const btnStar       = document.getElementById('btnStar');
+const btnCancel     = document.getElementById('btnCancel');
+const editorBack    = document.getElementById('editorBack');
 const btnAttach     = document.getElementById('btnAttach');
 const inputImage    = document.getElementById('inputImage');
 const imagePreview  = document.getElementById('imagePreview');
@@ -206,7 +208,6 @@ function resetEditor() {
   state.currentId = null;
   state.isStarred = false;
   state.attachedImages = [];
-  btnStar.textContent = '☆';
   btnStar.classList.remove('active');
   imagePreview.hidden = true;
   imagePreview.innerHTML = '';
@@ -394,10 +395,13 @@ btnSave.addEventListener('click', () => {
   renderNotes();
 });
 
+/** 취소 버튼 / 에디터 뒤로가기 */
+btnCancel.addEventListener('click', () => resetEditor());
+editorBack.addEventListener('click', () => resetEditor());
+
 /** 중요(별) 토글 */
 btnStar.addEventListener('click', () => {
   state.isStarred = !state.isStarred;
-  btnStar.textContent = state.isStarred ? '★' : '☆';
   btnStar.classList.toggle('active', state.isStarred);
 });
 
@@ -513,7 +517,6 @@ btnEdit.addEventListener('click', () => {
   state.currentId   = note.id;
   state.isStarred   = note.starred;
   state.attachedImages = [...(note.images || [])];
-  btnStar.textContent = note.starred ? '★' : '☆';
   btnStar.classList.toggle('active', note.starred);
   renderImagePreview();
   closeDetail();

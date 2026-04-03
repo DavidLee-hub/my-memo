@@ -2,16 +2,17 @@
    CSS 변수 (테마)
    ============================================= */
 :root {
-  --color-primary: #4A90D9;
-  --color-primary-dark: #357ABD;
-  --color-bg: #F5F7FA;
+  --color-primary: #2C6E49;
+  --color-primary-dark: #1B4D33;
+  --color-primary-light: #4C9970;
+  --color-bg: #F4F1EC;
   --color-surface: #FFFFFF;
-  --color-border: #E0E4EA;
-  --color-text: #1A1A2E;
-  --color-text-sub: #6B7280;
-  --color-star: #F59E0B;
-  --color-danger: #EF4444;
-  --color-toast-bg: #1A1A2E;
+  --color-border: #D9D4CC;
+  --color-text: #1A1A1A;
+  --color-text-sub: #6B7160;
+  --color-star: #E0A84B;
+  --color-danger: #D45A3A;
+  --color-toast-bg: #1B4D33;
   --color-toast-text: #FFFFFF;
 
   --font-size-small: 13px;
@@ -29,13 +30,13 @@
 
 /* 다크모드 */
 body.dark-mode {
-  --color-bg: #0F0F1A;
-  --color-surface: #1E1E2E;
-  --color-border: #2D2D42;
-  --color-text: #E8E8F0;
-  --color-text-sub: #9CA3AF;
-  --color-toast-bg: #E8E8F0;
-  --color-toast-text: #1A1A2E;
+  --color-bg: #1E1E1E;
+  --color-surface: #2A2A2A;
+  --color-border: #3A3A3A;
+  --color-text: #F0EDE8;
+  --color-text-sub: #9A9A8A;
+  --color-toast-bg: #F0EDE8;
+  --color-toast-text: #1A1A1A;
 }
 
 /* =============================================
@@ -55,13 +56,30 @@ body.font-large  { --font-size-current: var(--font-size-large); }
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: var(--font-size-current);
-  background-color: var(--color-bg);
+  background-color: #C8C8C8;
   color: var(--color-text);
   line-height: 1.6;
   min-height: 100dvh;
+  display: flex;
+  justify-content: center;
   transition: background-color var(--transition), color var(--transition);
+}
+
+body.dark-mode { background-color: #111111; }
+
+/* 앱 전체를 모바일 폰 너비로 제한 */
+.app-wrapper {
+  width: 100%;
+  max-width: 393px;
+  min-height: 100dvh;
+  background-color: var(--color-bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  box-shadow: 0 0 40px rgba(0,0,0,0.18);
 }
 
 button {
@@ -140,7 +158,7 @@ ul { list-style: none; }
    더보기 드롭다운 메뉴
    ============================================= */
 .more-menu {
-  position: fixed;
+  position: absolute;
   top: 60px;
   right: 12px;
   z-index: 200;
@@ -204,8 +222,7 @@ ul { list-style: none; }
    메인 레이아웃
    ============================================= */
 .main {
-  max-width: 640px;
-  margin: 0 auto;
+  flex: 1;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -223,8 +240,28 @@ ul { list-style: none; }
   box-shadow: var(--shadow);
 }
 
+/* textarea + 좌측 뒤로 + 우측 버튼 가로 배치 */
+.editor__body {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* 에디터 좌측 뒤로가기 버튼 */
+.editor__back {
+  font-size: 20px;
+  color: var(--color-text-sub);
+  padding: 4px 2px;
+  align-self: flex-start;
+  padding-top: 2px;
+  transition: color var(--transition);
+}
+
+.editor__back:hover { color: var(--color-text); }
+
 .editor__textarea {
-  width: 100%;
+  flex: 1;
+  min-height: 120px;
   border: none;
   outline: none;
   resize: none;
@@ -234,10 +271,60 @@ ul { list-style: none; }
 
 .editor__textarea::placeholder { color: var(--color-text-sub); }
 
-.editor__actions {
+/* 우측 세로 버튼 영역 */
+.editor__sidebar {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 56px;
+}
+
+.editor__sidebar button {
+  flex: 1;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+/* 저장 버튼 */
+.btn-save {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn-save:hover { background-color: var(--color-primary-dark); }
+
+/* 중요(별) 버튼 */
+.btn-star {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-sub);
+}
+
+.btn-star.active {
+  background-color: var(--color-star);
+  border-color: var(--color-star);
+  color: #fff;
+}
+
+.btn-star:hover { border-color: var(--color-star); color: var(--color-star); }
+
+/* 취소 버튼 */
+.btn-cancel {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-sub);
+}
+
+.btn-cancel:hover {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: #fff;
+}
+
+/* 하단 첨부 영역 */
+.editor__footer {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid var(--color-border);
@@ -245,36 +332,15 @@ ul { list-style: none; }
 
 /* 이미지 첨부 버튼 */
 .btn-attach {
-  font-size: 18px;
-  padding: 4px 8px;
+  font-size: 13px;
+  padding: 6px 12px;
   border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-sub);
   transition: background-color var(--transition);
 }
 
 .btn-attach:hover { background-color: var(--color-bg); }
-
-/* 별(중요) 버튼 */
-.btn-star {
-  font-size: 20px;
-  padding: 4px 8px;
-  transition: transform var(--transition);
-}
-
-.btn-star.active { color: var(--color-star); }
-.btn-star:hover { transform: scale(1.2); }
-
-/* 저장 버튼 */
-.btn-save {
-  margin-left: auto;
-  padding: 8px 20px;
-  background-color: var(--color-primary);
-  color: #fff;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  transition: background-color var(--transition);
-}
-
-.btn-save:hover { background-color: var(--color-primary-dark); }
 
 /* 이미지 미리보기 */
 .editor__preview {
@@ -421,7 +487,7 @@ ul { list-style: none; }
    상세보기 패널
    ============================================= */
 .detail-panel {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 300;
   background-color: var(--color-bg);
@@ -499,7 +565,7 @@ ul { list-style: none; }
    토스트 알림
    ============================================= */
 .toast {
-  position: fixed;
+  position: absolute;
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
