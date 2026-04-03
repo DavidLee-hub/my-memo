@@ -410,6 +410,11 @@ btnSave.addEventListener('click', () => {
   renderNotes();
 });
 
+/** 녹음 버튼 — 미지원 안내 */
+btnRecord.addEventListener('click', () => {
+  showToast('녹음 기능은 준비 중입니다.', 2000);
+});
+
 /** FAB 버튼 — 에디터로 포커스 */
 btnFab.addEventListener('click', () => {
   memoInput.focus();
