@@ -449,6 +449,14 @@ searchInput.addEventListener('input', e => {
   renderNotes();
 });
 
+/** 검색창 엔터 — 페이지 새로고침 방지 */
+searchInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    searchInput.blur();
+  }
+});
+
 /** 중요 메모 필터 */
 btnFilter.addEventListener('click', () => {
   state.filterStarred = !state.filterStarred;
@@ -475,9 +483,12 @@ btnExport.addEventListener('click', () => {
 });
 
 /** 가져오기 */
-document.querySelector('label[for="inputImport"]').addEventListener('click', () => {
-  moreMenu.hidden = true;
-});
+const labelImport = document.querySelector('label[for="inputImport"]');
+if (labelImport) {
+  labelImport.addEventListener('click', () => {
+    moreMenu.hidden = true;
+  });
+}
 
 inputImport.addEventListener('change', e => {
   if (e.target.files[0]) importNotes(e.target.files[0]);
