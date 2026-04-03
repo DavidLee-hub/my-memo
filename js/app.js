@@ -43,6 +43,11 @@ const inputImport   = document.getElementById('inputImport');
 const btnDarkMode   = document.getElementById('btnDarkMode');
 const btnInstall    = document.getElementById('btnInstall');
 const toast         = document.getElementById('toast');
+const memoCount     = document.getElementById('memoCount');
+const dialogOverlay = document.getElementById('dialogOverlay');
+const dialogMessage = document.getElementById('dialogMessage');
+const dialogCancel  = document.getElementById('dialogCancel');
+const dialogConfirm = document.getElementById('dialogConfirm');
 
 // 상세보기
 const detailPanel   = document.getElementById('detailPanel');
@@ -77,6 +82,23 @@ function showToast(message, duration = 2000) {
   toast.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+/** 커스텀 확인 다이얼로그 */
+function showConfirm(message) {
+  return new Promise(resolve => {
+    dialogMessage.textContent = message;
+    dialogOverlay.hidden = false;
+    const onConfirm = () => { cleanup(); resolve(true); };
+    const onCancel  = () => { cleanup(); resolve(false); };
+    const cleanup   = () => {
+      dialogOverlay.hidden = true;
+      dialogConfirm.removeEventListener('click', onConfirm);
+      dialogCancel.removeEventListener('click', onCancel);
+    };
+    dialogConfirm.addEventListener('click', onConfirm);
+    dialogCancel.addEventListener('click', onCancel);
+  });
 }
 
 /** 햅틱 피드백 */
@@ -152,10 +174,16 @@ function getFilteredNotes() {
 // 렌더링
 // =============================================
 
+/** 헤더 메모 개수 업데이트 */
+function updateCount() {
+  memoCount.textContent = state.notes.length;
+}
+
 /** 메모 목록 렌더링 */
 function renderNotes() {
   const filtered = getFilteredNotes();
   memoList.innerHTML = '';
+  updateCount();
 
   if (filtered.length === 0) {
     memoList.innerHTML = `
@@ -557,8 +585,9 @@ btnEdit.addEventListener('click', () => {
 });
 
 /** 삭제 */
-btnDelete.addEventListener('click', () => {
-  if (!confirm('메모를 삭제할까요?')) return;
+btnDelete.addEventListener('click', async () => {
+  const ok = await showConfirm('메모를 삭제할까요?');
+  if (!ok) return;
   deleteNote(state.detailId);
   vibrate([100, 50, 100]);
   closeDetail();

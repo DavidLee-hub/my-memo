@@ -118,10 +118,28 @@ ul { list-style: none; }
   box-shadow: var(--shadow);
 }
 
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .header__title {
   font-size: 20px;
   font-weight: 700;
   color: var(--color-primary);
+}
+
+/* 메모 개수 배지 */
+.header__count {
+  font-size: 12px;
+  font-weight: 600;
+  background-color: var(--color-primary-light);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 999px;
+  min-width: 24px;
+  text-align: center;
 }
 
 .header__actions {
@@ -584,6 +602,66 @@ ul { list-style: none; }
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
 }
+
+/* =============================================
+   커스텀 확인 다이얼로그
+   ============================================= */
+.dialog-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 500;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.dialog {
+  background-color: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 24px;
+  width: 100%;
+  max-width: 280px;
+  box-shadow: var(--shadow-md);
+}
+
+.dialog__message {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.dialog__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.dialog__btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+.dialog__btn--cancel {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-sub);
+}
+
+.dialog__btn--cancel:hover { background-color: var(--color-border); }
+
+.dialog__btn--confirm {
+  background-color: var(--color-danger);
+  color: #fff;
+}
+
+.dialog__btn--confirm:hover { opacity: 0.88; }
 
 /* =============================================
    토스트 알림

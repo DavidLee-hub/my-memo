@@ -25,7 +25,10 @@
 
   <!-- 헤더 -->
   <header class="header">
-    <h1 class="header__title">MHLEE</h1>
+    <div class="header__left">
+      <h1 class="header__title">MHLEE</h1>
+      <span class="header__count" id="memoCount">0</span>
+    </div>
     <div class="header__actions">
       <!-- 설치 버튼 (PWA 설치 가능 시 표시) -->
       <button class="btn-install" id="btnInstall" hidden>설치</button>
@@ -121,6 +124,17 @@
     <div class="detail-panel__content" id="detailContent"></div>
     <div class="detail-panel__images" id="detailImages"></div>
   </article>
+
+  <!-- 커스텀 확인 다이얼로그 -->
+  <div class="dialog-overlay" id="dialogOverlay" hidden>
+    <div class="dialog">
+      <p class="dialog__message" id="dialogMessage"></p>
+      <div class="dialog__actions">
+        <button class="dialog__btn dialog__btn--cancel" id="dialogCancel">취소</button>
+        <button class="dialog__btn dialog__btn--confirm" id="dialogConfirm">확인</button>
+      </div>
+    </div>
+  </div>
 
   <!-- 토스트 알림 -->
   <div class="toast" id="toast" aria-live="polite"></div>

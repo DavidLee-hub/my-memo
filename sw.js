@@ -2,7 +2,7 @@
    My Memo - Service Worker
    ============================================= */
 
-const CACHE_NAME = 'my-memo-v1';
+const CACHE_NAME = 'mhlee-memo-v2';
 
 // 캐시할 파일 목록
 const CACHE_FILES = [
